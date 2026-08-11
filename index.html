@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A small family peach orchard in Kherson Oblast, raised by two brothers on the wide southern steppe." data-i18n-meta="description" />
+    <meta name="theme-color" content="#173724" />
+    <title>The Peach Plot — Raised close to home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="The Peach Plot, home" data-i18n-aria-label="brandHome">
+        <span class="brand__fruit" aria-hidden="true"></span>
+        <span>The Peach Plot</span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-i18n-aria-label="primaryNav">
+        <a href="#story" data-i18n="navStory">Our story</a>
+        <a href="#season" data-i18n="navSeason">The season</a>
+        <a href="#people" data-i18n="navPeople">The brothers</a>
+        <button class="nav-cta" type="button" data-open-visit data-i18n="planVisit">Plan a visit</button>
+      </nav>
+      <div class="header-controls">
+        <button class="language-toggle" type="button" data-language-toggle data-language="en" aria-pressed="false" aria-label="Switch language to Ukrainian">
+          <span>EN</span><span>UA</span><i aria-hidden="true"></i>
+        </button>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only" data-i18n="menuToggle">Toggle navigation</span>
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero__media" aria-hidden="true">
+          <img src="assets/orchard-hero-v2.webp" alt="" fetchpriority="high" />
+        </div>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <div class="hero__content page-shell">
+          <p class="eyebrow hero__eyebrow reveal-item" data-i18n="heroEyebrow">Kherson steppe · Family grown</p>
+          <h1 id="hero-title">
+            <span class="hero-line"><span data-i18n="heroLineOne">Peaches, raised</span></span>
+            <span class="hero-line hero-line--italic"><span data-i18n="heroLineTwo">close to home.</span></span>
+          </h1>
+          <div class="hero__bottom reveal-item">
+            <p data-i18n-html="heroBottom">Two brothers. One modest plot.<br />Every tree known by heart.</p>
+            <a class="round-link" href="#story" aria-label="Read our story" data-i18n-aria-label="readStory">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+            </a>
+          </div>
+        </div>
+        <p class="hero__side-note" aria-hidden="true" data-i18n="heroSide">Harvest notes / 01</p>
+      </section>
+
+      <section class="intro paper-section" id="story">
+        <div class="page-shell intro__grid">
+          <p class="section-index reveal" data-i18n="plotIndex">01 / THE PLOT</p>
+          <div>
+            <p class="intro__lead reveal" data-i18n="plotLead">Good fruit has nowhere to hide.</p>
+            <h2 class="display-copy reveal" data-i18n-html="plotTitle">Our fertile ground and their daily work meet in a peach that is <em>sweet, fragrant, and alive.</em></h2>
+          </div>
+          <aside class="intro__aside reveal">
+            <p data-i18n="plotBody">The orchard sits close to the family home in Kherson Oblast, where fertile ground meets the wide, open southern steppe. Small enough to care for closely, large enough to keep two brothers busy every day.</p>
+            <a class="text-link" href="#season"><span data-i18n="seeHow">See how we grow</span> <span aria-hidden="true">↘</span></a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="orchard-film dark-section" id="season" aria-labelledby="season-title">
+        <div class="page-shell orchard-film__heading">
+          <p class="section-index reveal" data-i18n="seasonIndex">02 / THE SEASON</p>
+          <h2 id="season-title" class="reveal" data-i18n-html="seasonTitle">Care, repeated<br /><em>until it tastes right.</em></h2>
+        </div>
+        <div class="orchard-film__stage page-shell">
+          <figure class="phone-film media-reveal reveal">
+            <video autoplay muted loop playsinline poster="assets/orchard-hero-v2.webp" aria-label="A slow walk past peach trees in the family orchard" data-i18n-aria-label="orchardVideo">
+              <source src="assets/orchard-walk-v2.mp4" type="video/mp4" />
+            </video>
+            <figcaption data-i18n="rowsCaption">In the rows / late summer</figcaption>
+          </figure>
+          <ol class="care-list">
+            <li class="reveal">
+              <span>01</span>
+              <div><h3 data-i18n="careOneTitle">Fertilize with purpose</h3><p data-i18n="careOneBody">Good fruit starts below the surface. The soil and every tree are fed at the right stage, giving roots the nutrients they need without wasting what the land provides.</p></div>
+            </li>
+            <li class="reveal">
+              <span>02</span>
+              <div><h3 data-i18n="careTwoTitle">Protect the trees</h3><p data-i18n="careTwoBody">Disease and pests never take a season off. The orchard is watched constantly, then treated with the right crop protection at the right moment — carefully measured and never used blindly.</p></div>
+            </li>
+            <li class="reveal">
+              <span>03</span>
+              <div><h3 data-i18n="careThreeTitle">Watch the water</h3><p data-i18n="careThreeBody">Heat changes quickly here. Irrigation is checked, adjusted, and checked again so the roots receive what they need, when they need it.</p></div>
+            </li>
+            <li class="reveal">
+              <span>04</span>
+              <div><h3 data-i18n="careFourTitle">Prune &amp; thin</h3><p data-i18n="careFourBody">Branches are opened to light and crowded fruit is thinned by hand. Fewer peaches on the tree means more strength, sweetness, and size in each one.</p></div>
+            </li>
+            <li class="reveal">
+              <span>05</span>
+              <div><h3 data-i18n="careFiveTitle">Pick by hand</h3><p data-i18n="careFiveBody">Color is only the first clue. A peach is ready when it gives just enough beneath your thumb.</p></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="proof paper-section" aria-labelledby="proof-title">
+        <div class="page-shell">
+          <div class="proof__top">
+            <p class="section-index reveal" data-i18n="proofIndex">03 / THE PROOF</p>
+            <h2 id="proof-title" class="reveal" data-i18n-html="proofTitle">No slogans.<br /><em>Just take a bite.</em></h2>
+          </div>
+          <div class="proof__gallery">
+            <figure class="proof-card proof-card--bite media-reveal reveal">
+              <img src="assets/peach-bite.webp" alt="A freshly bitten yellow peach showing its juicy flesh" loading="lazy" data-i18n-alt="biteAlt" />
+              <figcaption><span data-i18n="biteCaption">Juice on your hands</span><small data-i18n="biteNote">The honest quality test</small></figcaption>
+            </figure>
+            <blockquote class="proof__quote reveal">
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <p data-i18n="quote">There is not much to add. Come and taste it for yourself.</p>
+              <cite data-i18n="quoteBy">— The family rule</cite>
+            </blockquote>
+            <figure class="proof-card proof-card--harvest media-reveal reveal">
+              <img src="assets/harvest-buckets-v2.webp" alt="Two large buckets filled with freshly picked yellow and red peaches" loading="lazy" data-i18n-alt="bucketsAlt" />
+              <figcaption><span data-i18n="harvestCaption">Today’s pick</span><small data-i18n="harvestNote">Never waiting in a warehouse</small></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="people" id="people" aria-labelledby="people-title">
+        <div class="people__portrait media-reveal reveal">
+          <img src="assets/igor-vitalik-v2.webp" alt="Igor and Vitalii shaking hands in their peach orchard" loading="lazy" data-i18n-alt="brothersAlt" />
+        </div>
+        <div class="people__story">
+          <p class="section-index reveal" data-i18n="peopleIndex">04 / THE BROTHERS</p>
+          <h2 id="people-title" class="reveal">Igor &amp; Vitalii</h2>
+          <p class="people__intro reveal" data-i18n="peopleIntro">Brothers, growers, and the two pairs of hands behind every harvest.</p>
+          <div class="people__details reveal">
+            <p data-i18n="peopleBodyOne">They fertilize, water, prune, mend, carry, and begin again the next morning. The work is ordinary. The care is not.</p>
+            <p data-i18n="peopleBodyTwo">This orchard was never designed to be the biggest. It was built to produce something the family would be proud to put on its own table.</p>
+          </div>
+          <div class="signature reveal" aria-label="Igor and Vitalii, since day one" data-i18n-aria-label="signatureLabel">
+            <span>Igor</span><i>&amp;</i><span>Vitalii</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="visit" id="visit" aria-labelledby="visit-title">
+        <video class="visit__film" autoplay muted loop playsinline aria-hidden="true">
+          <source src="assets/sunset-base.mp4" type="video/mp4" />
+        </video>
+        <div class="visit__shade" aria-hidden="true"></div>
+        <div class="visit__content page-shell">
+          <p class="eyebrow reveal" data-i18n="visitEyebrow">When the peaches are ready</p>
+          <h2 id="visit-title" class="reveal" data-i18n-html="visitTitle">Come by.<br /><em>Leave convinced.</em></h2>
+          <p class="reveal" data-i18n="visitBody">Visits are simple and personal, just like the orchard. Let us know before you set out.</p>
+          <button class="visit-button reveal" type="button" data-open-visit>
+            <span data-i18n="planVisit">Plan a visit</span><span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell footer__grid">
+        <a class="brand brand--footer" href="#top"><span class="brand__fruit" aria-hidden="true"></span><span>The Peach Plot</span></a>
+        <p data-i18n-html="footerTagline">Kherson Oblast.<br />On the wide southern steppe.</p>
+        <div><p data-i18n="footerSeason">Family grown</p><p data-i18n="footerVisits">Picked by hand in season</p></div>
+        <p class="copyright">© <span data-year></span> The Peach Plot</p>
+      </div>
+    </footer>
+
+    <dialog class="visit-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Close visit form" data-i18n-aria-label="closeForm">×</button>
+      <div class="dialog-copy">
+        <p class="eyebrow" data-i18n="dialogEyebrow">A good day out</p>
+        <h2 id="dialog-title" data-i18n="dialogTitle">Come meet the orchard.</h2>
+        <p data-i18n="dialogBody">Leave your details and the family will help arrange a time during harvest season.</p>
+      </div>
+      <form class="visit-form">
+        <label><span data-i18n="formName">Name</span><input name="name" autocomplete="name" required placeholder="Your name" data-i18n-placeholder="namePlaceholder" /></label>
+        <label><span data-i18n="formEmail">Email</span><input type="email" name="email" autocomplete="email" required placeholder="you@example.com" data-i18n-placeholder="emailPlaceholder" /></label>
+        <label><span data-i18n="formReason">What brings you by?</span><textarea name="message" rows="3" placeholder="A family visit, a box of peaches…" data-i18n-placeholder="messagePlaceholder"></textarea></label>
+        <button class="submit-button" type="submit"><span data-i18n="sendNote">Send a visit note</span> <span aria-hidden="true">↗</span></button>
+        <p class="form-note" data-i18n="formNote">Portfolio demo — no message is transmitted.</p>
+      </form>
+      <div class="form-success" hidden>
+        <span aria-hidden="true">✓</span>
+        <h2 data-i18n="successTitle">We’ll save you a peach.</h2>
+        <p data-i18n="successBody">Thanks for the note. In a live version, this would now reach the orchard.</p>
+        <button class="text-link" type="button" data-close-dialog data-i18n="close">Close</button>
+      </div>
+    </dialog>
+  </body>
+</html>
