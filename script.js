@@ -280,13 +280,24 @@ const dialog = document.querySelector('.visit-dialog');
 const form = dialog?.querySelector('.visit-form');
 const dialogCopy = dialog?.querySelector('.dialog-copy');
 const success = dialog?.querySelector('.form-success');
+const formState = dialog?.querySelector('.dialog-form-state');
+let successFocusTimer;
+
+const setDialogState = (state) => {
+  const showingSuccess = state === 'success';
+  dialog.dataset.state = state;
+  formState.toggleAttribute('inert', showingSuccess);
+  formState.setAttribute('aria-hidden', String(showingSuccess));
+  success.toggleAttribute('inert', !showingSuccess);
+  success.setAttribute('aria-hidden', String(!showingSuccess));
+};
 
 document.querySelectorAll('[data-open-visit]').forEach((button) => {
   button.addEventListener('click', () => {
     closeMenu();
-    form.hidden = false;
-    dialogCopy.hidden = false;
-    success.hidden = true;
+    window.clearTimeout(successFocusTimer);
+    setDialogState('form');
+    form.reset();
     dialog.showModal();
     requestAnimationFrame(() => dialog.querySelector('input')?.focus());
   });
@@ -300,13 +311,18 @@ dialog?.addEventListener('click', (event) => {
   if (event.target === dialog) dialog.close();
 });
 
+dialog?.addEventListener('close', () => {
+  window.clearTimeout(successFocusTimer);
+  setDialogState('form');
+});
+
 form?.addEventListener('submit', (event) => {
   event.preventDefault();
-  form.hidden = true;
-  dialogCopy.hidden = true;
-  success.hidden = false;
-  success.querySelector('button')?.focus();
+  setDialogState('success');
   form.reset();
+  successFocusTimer = window.setTimeout(() => {
+    success.querySelector('button')?.focus();
+  }, reduceMotion ? 0 : 110);
 });
 
 if (reduceMotion) {

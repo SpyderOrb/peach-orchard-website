@@ -178,25 +178,29 @@
       </div>
     </footer>
 
-    <dialog class="visit-dialog" aria-labelledby="dialog-title">
+    <dialog class="visit-dialog" aria-labelledby="dialog-title" data-state="form">
       <button class="dialog-close" type="button" data-close-dialog aria-label="Close visit form" data-i18n-aria-label="closeForm">×</button>
-      <div class="dialog-copy">
-        <p class="eyebrow" data-i18n="dialogEyebrow">A good day out</p>
-        <h2 id="dialog-title" data-i18n="dialogTitle">Come meet the orchard.</h2>
-        <p data-i18n="dialogBody">Leave your details and the family will help arrange a time during harvest season.</p>
-      </div>
-      <form class="visit-form">
-        <label><span data-i18n="formName">Name</span><input name="name" autocomplete="name" required placeholder="Your name" data-i18n-placeholder="namePlaceholder" /></label>
-        <label><span data-i18n="formEmail">Email</span><input type="email" name="email" autocomplete="email" required placeholder="you@example.com" data-i18n-placeholder="emailPlaceholder" /></label>
-        <label><span data-i18n="formReason">What brings you by?</span><textarea name="message" rows="3" placeholder="A family visit, a box of peaches…" data-i18n-placeholder="messagePlaceholder"></textarea></label>
-        <button class="submit-button" type="submit"><span data-i18n="sendNote">Send a visit note</span> <span aria-hidden="true">↗</span></button>
-        <p class="form-note" data-i18n="formNote">Portfolio demo — no message is transmitted.</p>
-      </form>
-      <div class="form-success" hidden>
-        <span aria-hidden="true">✓</span>
-        <h2 data-i18n="successTitle">We’ll save you a peach.</h2>
-        <p data-i18n="successBody">Thanks for the note. In a live version, this would now reach the orchard.</p>
-        <button class="text-link" type="button" data-close-dialog data-i18n="close">Close</button>
+      <div class="visit-dialog__stage">
+        <div class="dialog-form-state">
+          <div class="dialog-copy">
+            <p class="eyebrow" data-i18n="dialogEyebrow">A good day out</p>
+            <h2 id="dialog-title" data-i18n="dialogTitle">Come meet the orchard.</h2>
+            <p data-i18n="dialogBody">Leave your details and the family will help arrange a time during harvest season.</p>
+          </div>
+          <form class="visit-form">
+            <label><span data-i18n="formName">Name</span><input name="name" autocomplete="name" required placeholder="Your name" data-i18n-placeholder="namePlaceholder" /></label>
+            <label><span data-i18n="formEmail">Email</span><input type="email" name="email" autocomplete="email" required placeholder="you@example.com" data-i18n-placeholder="emailPlaceholder" /></label>
+            <label><span data-i18n="formReason">What brings you by?</span><textarea name="message" rows="3" placeholder="A family visit, a box of peaches…" data-i18n-placeholder="messagePlaceholder"></textarea></label>
+            <button class="submit-button" type="submit"><span data-i18n="sendNote">Send a visit note</span> <span aria-hidden="true">↗</span></button>
+            <p class="form-note" data-i18n="formNote">Portfolio demo — no message is transmitted.</p>
+          </form>
+        </div>
+        <div class="form-success" aria-live="polite" aria-atomic="true" aria-hidden="true" inert>
+          <span aria-hidden="true">✓</span>
+          <h2 data-i18n="successTitle">We’ll save you a peach.</h2>
+          <p data-i18n="successBody">Thanks for the note. In a live version, this would now reach the orchard.</p>
+          <button class="text-link" type="button" data-close-dialog data-i18n="close">Close</button>
+        </div>
       </div>
     </dialog>
   </body>
