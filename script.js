@@ -38,6 +38,8 @@ const translations = {
     careFourBody: 'Branches are opened to light and crowded fruit is thinned by hand. Fewer peaches on the tree means more strength, sweetness, and size in each one.',
     careFiveTitle: 'Pick by hand',
     careFiveBody: 'Color is only the first clue. A peach is ready when it gives just enough beneath your thumb.',
+    careSixTitle: 'Read the weather',
+    careSixBody: 'Forecasts, wind, heat, and humidity shape each day’s work. Plans change early, before the open steppe weather has a chance to do harm.',
     proofIndex: '03 / THE PROOF',
     proofTitle: 'No slogans.<br /><em>Just take a bite.</em>',
     biteAlt: 'A freshly bitten yellow peach showing its juicy flesh',
@@ -116,6 +118,8 @@ const translations = {
     careFourBody: 'Гілки відкривають сонцю, а надто густі плоди проріджують вручну. Менше персиків на дереві — більше сили, солодкості й розміру в кожному.',
     careFiveTitle: 'Збирати вручну',
     careFiveBody: 'Колір — лише перша ознака. Персик готовий, коли м’яко піддається під пальцями.',
+    careSixTitle: 'Зважати на погоду',
+    careSixBody: 'Прогноз, вітер, спека й вологість визначають щоденну роботу. План змінюють завчасно, перш ніж погода відкритого степу встигне нашкодити.',
     proofIndex: '03 / ДОКАЗ',
     proofTitle: 'Без гасел.<br /><em>Просто скуштуйте.</em>',
     biteAlt: 'Свіжий надкушений жовтий персик із соковитою м’якоттю',
@@ -232,14 +236,25 @@ document.addEventListener('keydown', (event) => {
 
 const revealItems = [...document.querySelectorAll('.reveal')];
 if ('IntersectionObserver' in window && !reduceMotion) {
-  const observer = new IntersectionObserver((entries) => {
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       entry.target.classList.remove('is-pending');
       entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+
+  const resetObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const belowViewport = !entry.isIntersecting
+        && entry.rootBounds
+        && entry.boundingClientRect.top >= entry.rootBounds.bottom;
+
+      if (!belowViewport || !entry.target.classList.contains('is-visible')) return;
+      entry.target.classList.remove('is-visible');
+      entry.target.classList.add('is-pending');
+    });
+  }, { threshold: 0 });
 
   revealItems.forEach((item, index) => {
     item.style.transitionDelay = `${(index % 3) * 55}ms`;
@@ -247,8 +262,9 @@ if ('IntersectionObserver' in window && !reduceMotion) {
       item.classList.add('is-visible');
     } else {
       item.classList.add('is-pending');
-      observer.observe(item);
     }
+    revealObserver.observe(item);
+    resetObserver.observe(item);
   });
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'));
