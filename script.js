@@ -251,13 +251,15 @@ if ('IntersectionObserver' in window && !reduceMotion) {
         && entry.boundingClientRect.top >= entry.rootBounds.bottom;
 
       if (!belowViewport || !entry.target.classList.contains('is-visible')) return;
-      entry.target.classList.remove('is-visible');
-      entry.target.classList.add('is-pending');
+      const target = entry.target;
+      target.classList.add('is-resetting');
+      target.classList.remove('is-visible');
+      target.classList.add('is-pending');
+      requestAnimationFrame(() => target.classList.remove('is-resetting'));
     });
   }, { threshold: 0 });
 
-  revealItems.forEach((item, index) => {
-    item.style.transitionDelay = `${(index % 3) * 55}ms`;
+  revealItems.forEach((item) => {
     if (item.getBoundingClientRect().top < window.innerHeight * 0.93) {
       item.classList.add('is-visible');
     } else {
