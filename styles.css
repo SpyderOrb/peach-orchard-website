@@ -43,6 +43,7 @@ button { color: inherit; }
   transition: transform 180ms var(--ease-out);
 }
 .skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 3px solid var(--peach); outline-offset: 4px; }
 .page-shell { width: var(--shell); margin-inline: auto; }
 .scroll-progress {
   position: fixed; z-index: 120; inset: 0 0 auto; height: 3px; transform-origin: left;
@@ -263,6 +264,7 @@ html[lang="uk"] .display-copy { font-size: clamp(42px, 5vw, 72px); }
 .visit-form label { display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
 .visit-form input, .visit-form textarea { width: 100%; border: 0; border-bottom: 1px solid var(--line); padding: 10px 0; border-radius: 0; background: transparent; color: var(--ink); outline: none; text-transform: none; letter-spacing: 0; resize: vertical; }
 .visit-form input:focus, .visit-form textarea:focus { border-color: var(--coral); }
+.visit-form input:focus-visible, .visit-form textarea:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 .submit-button { border: 0; margin-top: 6px; padding: 17px 20px; background: var(--coral); color: white; display: flex; justify-content: space-between; cursor: pointer; transition: background-color 160ms ease, transform 140ms var(--ease-out); }
 .form-note { font-size: 10px; opacity: .55; }
 .form-success { padding: 70px 56px; text-align: center; }
@@ -291,9 +293,9 @@ html[lang="uk"] .display-copy { font-size: clamp(42px, 5vw, 72px); }
   .site-nav {
     position: fixed; inset: 0; z-index: -1; background: var(--leaf-deep); padding: 130px 28px 40px;
     display: flex; flex-direction: column; align-items: flex-start; gap: 26px; margin-left: 0; font: 300 42px/1 "Newsreader", Georgia, serif;
-    opacity: 0; transform: translateY(-3%); pointer-events: none; transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+    opacity: 0; transform: translateY(-3%); visibility: hidden; pointer-events: none; transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s linear 220ms;
   }
-  .site-nav.is-open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .site-nav.is-open { opacity: 1; transform: translateY(0); visibility: visible; pointer-events: auto; transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s; }
   .site-nav .nav-cta { margin-top: auto; width: 100%; font: 500 14px/1 "DM Sans", sans-serif; padding: 17px; }
   .menu-button[aria-expanded="true"] span:nth-child(2) { transform: translateY(3px) rotate(45deg); }
   .menu-button[aria-expanded="true"] span:nth-child(3) { transform: translateY(-3px) rotate(-45deg); }

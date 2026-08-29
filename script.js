@@ -8,7 +8,8 @@ const translations = {
     skip: 'Skip to content',
     brandHome: 'The Peach Plot, home',
     primaryNav: 'Primary navigation',
-    menuToggle: 'Toggle navigation',
+    menuToggle: 'Open navigation',
+    menuClose: 'Close navigation',
     navStory: 'Our story',
     navSeason: 'The season',
     navPeople: 'The brothers',
@@ -88,7 +89,8 @@ const translations = {
     skip: 'Перейти до вмісту',
     brandHome: 'The Peach Plot, головна',
     primaryNav: 'Головна навігація',
-    menuToggle: 'Відкрити або закрити навігацію',
+    menuToggle: 'Відкрити навігацію',
+    menuClose: 'Закрити навігацію',
     navStory: 'Наша історія',
     navSeason: 'Сезон',
     navPeople: 'Брати',
@@ -193,6 +195,9 @@ const applyLanguage = (language, { persist = true } = {}) => {
   languageToggle.setAttribute('aria-pressed', String(nextLanguage === 'uk'));
   languageToggle.setAttribute('aria-label', copy.languageSwitch);
   languageToggle.title = copy.languageSwitch;
+  const menuLabel = document.querySelector('.menu-button .sr-only');
+  const menuIsOpen = document.querySelector('.menu-button')?.getAttribute('aria-expanded') === 'true';
+  if (menuLabel) menuLabel.textContent = menuIsOpen ? copy.menuClose : copy.menuToggle;
 
   if (persist) {
     try {
@@ -216,22 +221,58 @@ const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('.site-nav');
 
-const closeMenu = () => {
+const setMenuLabel = (isOpen) => {
+  const copy = translations[document.documentElement.lang] || translations.en;
+  menuButton?.querySelector('.sr-only')?.replaceChildren(isOpen ? copy.menuClose : copy.menuToggle);
+};
+
+const closeMenu = ({ restoreFocus = false } = {}) => {
+  const wasOpen = menuButton?.getAttribute('aria-expanded') === 'true';
   menuButton?.setAttribute('aria-expanded', 'false');
   nav?.classList.remove('is-open');
   document.body.classList.remove('menu-open');
+  setMenuLabel(false);
+  if (restoreFocus && wasOpen) menuButton?.focus();
 };
 
 menuButton?.addEventListener('click', () => {
   const willOpen = menuButton.getAttribute('aria-expanded') !== 'true';
-  menuButton.setAttribute('aria-expanded', String(willOpen));
-  nav.classList.toggle('is-open', willOpen);
-  document.body.classList.toggle('menu-open', willOpen);
+  if (!willOpen) {
+    closeMenu();
+    return;
+  }
+
+  menuButton.setAttribute('aria-expanded', 'true');
+  nav.classList.add('is-open');
+  document.body.classList.add('menu-open');
+  setMenuLabel(true);
+  nav.querySelector('a, button')?.focus({ preventScroll: true });
 });
 
 nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeMenu();
+  if (!nav?.classList.contains('is-open')) return;
+  if (event.key === 'Escape') {
+    closeMenu({ restoreFocus: true });
+    return;
+  }
+
+  if (event.key === 'Tab') {
+    const focusable = [...nav.querySelectorAll('a, button'), languageToggle, menuButton].filter(Boolean);
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900 && nav?.classList.contains('is-open')) closeMenu();
 });
 
 const revealItems = [...document.querySelectorAll('.reveal')];
@@ -343,8 +384,31 @@ form?.addEventListener('submit', (event) => {
   }, reduceMotion ? 0 : 110);
 });
 
-if (reduceMotion) {
-  document.querySelectorAll('video').forEach((video) => video.pause());
+const ambientVideos = [...document.querySelectorAll('video[autoplay]')];
+const conserveMedia = reduceMotion || navigator.connection?.saveData;
+
+const updateVideoPlayback = (video) => {
+  const shouldPlay = !conserveMedia && !document.hidden && video.dataset.nearViewport === 'true';
+  if (shouldPlay) video.play().catch(() => {});
+  else video.pause();
+};
+
+if ('IntersectionObserver' in window && !conserveMedia) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.dataset.nearViewport = String(entry.isIntersecting);
+      updateVideoPlayback(entry.target);
+    });
+  }, { rootMargin: '160px 0px' });
+  ambientVideos.forEach((video) => videoObserver.observe(video));
+} else if (conserveMedia) {
+  ambientVideos.forEach((video) => video.pause());
+} else {
+  ambientVideos.forEach((video) => { video.dataset.nearViewport = 'true'; });
 }
+
+document.addEventListener('visibilitychange', () => {
+  ambientVideos.forEach(updateVideoPlayback);
+});
 
 document.querySelector('[data-year]').textContent = new Date().getFullYear();
