@@ -341,6 +341,7 @@ const dialogCopy = dialog?.querySelector('.dialog-copy');
 const success = dialog?.querySelector('.form-success');
 const formState = dialog?.querySelector('.dialog-form-state');
 let successFocusTimer;
+let dialogTrigger;
 
 const setDialogState = (state) => {
   const showingSuccess = state === 'success';
@@ -353,6 +354,7 @@ const setDialogState = (state) => {
 
 document.querySelectorAll('[data-open-visit]').forEach((button) => {
   button.addEventListener('click', () => {
+    dialogTrigger = button;
     closeMenu();
     window.clearTimeout(successFocusTimer);
     setDialogState('form');
@@ -373,6 +375,8 @@ dialog?.addEventListener('click', (event) => {
 dialog?.addEventListener('close', () => {
   window.clearTimeout(successFocusTimer);
   setDialogState('form');
+  dialogTrigger?.focus();
+  dialogTrigger = undefined;
 });
 
 form?.addEventListener('submit', (event) => {
