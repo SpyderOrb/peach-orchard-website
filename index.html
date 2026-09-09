@@ -119,6 +119,77 @@
             </ol>
           </div>
         </div>
+        <section class="season-journal page-shell" id="season-journal" aria-labelledby="journal-title" data-season="harvest">
+          <div class="season-journal__heading">
+            <p class="section-index" data-i18n="journalIndex">FIELD NOTES / A YEAR IN THE ORCHARD</p>
+            <h3 id="journal-title" data-i18n="journalTitle">Every peach has a before.</h3>
+            <p data-i18n="journalIntro">Four chapters, one tree. Follow the quiet work that leads to a full basket.</p>
+          </div>
+          <div class="season-journal__layout">
+            <div class="season-journal__drawing" aria-hidden="true">
+              <svg viewBox="0 0 360 300" fill="none">
+                <circle cx="180" cy="148" r="118" class="journal-halo" />
+                <g class="journal-branch">
+                  <path d="M103 265C122 221 151 184 180 151C209 119 222 85 233 43M162 172C132 151 103 126 72 114M196 130C225 132 264 117 287 98M136 204C155 212 177 210 197 200" />
+                  <path d="M107 133 99 101M248 122 262 143M217 89 197 65" />
+                </g>
+                <g class="journal-leaves">
+                  <path d="M180 151C139 145 135 109 141 92C174 104 185 125 180 151Z" />
+                  <path d="M210 108C217 75 248 64 271 69C257 98 239 110 210 108Z" />
+                  <path d="M144 196C119 195 97 176 98 153C128 157 143 172 144 196Z" />
+                  <path d="M248 122C249 101 266 82 290 81C287 106 271 120 248 122Z" />
+                </g>
+                <g class="journal-blossoms" fill="#e7a1a0" stroke="#ba6261" stroke-width="1.5">
+                  <path d="M99 102C77 91 86 72 100 82C95 61 118 61 116 82C134 70 143 90 123 99C144 109 128 126 115 111C113 134 91 128 100 110C79 117 73 98 99 102Z" />
+                  <path d="M228 57C205 48 215 27 229 38C225 16 247 18 245 39C263 26 273 46 252 54C273 66 257 82 244 67C242 89 220 83 229 65C208 72 202 52 228 57Z" />
+                  <circle cx="110" cy="99" r="5" fill="#ffc868" /><circle cx="239" cy="54" r="5" fill="#ffc868" />
+                </g>
+                <g class="journal-fruit">
+                  <path d="M184 153C149 131 126 158 136 190C145 218 178 239 193 229C211 224 231 201 228 177C225 149 207 140 184 153Z" />
+                  <path d="M258 144C236 130 218 148 225 169C232 190 251 204 262 198C278 192 291 177 288 160C285 142 273 136 258 144Z" />
+                  <path class="journal-fruit__seam" d="M184 153C173 176 186 205 193 229M258 144C250 159 259 183 262 198" />
+                </g>
+                <path d="M72 270H287" class="journal-ground" />
+              </svg>
+              <span data-i18n="journalSketch">From the orchard notebook</span>
+            </div>
+            <div class="season-journal__pages">
+              <fieldset class="season-journal__controls" data-season-controls hidden>
+                <legend class="sr-only" data-i18n="journalChoose">Choose a chapter of the orchard year</legend>
+                <label><input class="sr-only" type="radio" name="orchard-season" value="blossom" aria-controls="season-reading" /><span><small>01</small><span data-i18n="journalBlossom">Blossom</span></span></label>
+                <label><input class="sr-only" type="radio" name="orchard-season" value="growing" aria-controls="season-reading" /><span><small>02</small><span data-i18n="journalGrowing">Growing</span></span></label>
+                <label><input class="sr-only" type="radio" name="orchard-season" value="harvest" aria-controls="season-reading" checked /><span><small>03</small><span data-i18n="journalHarvest">Harvest</span></span></label>
+                <label><input class="sr-only" type="radio" name="orchard-season" value="rest" aria-controls="season-reading" /><span><small>04</small><span data-i18n="journalRest">Rest</span></span></label>
+              </fieldset>
+              <div class="season-journal__reading" id="season-reading" aria-live="polite" aria-atomic="true">
+                <article data-season-page="blossom">
+                  <p class="season-journal__chapter" data-i18n="journalBlossomNote">01 / THE FIRST PROMISE</p>
+                  <h4 data-i18n="journalBlossomTitle">Before the fruit, a flower.</h4>
+                  <p data-i18n="journalBlossomBody">The branches begin again in pink. The basket is still a long way off; for now, the work is to watch the trees and keep an eye on the changing weather.</p>
+                  <p class="season-journal__detail" data-i18n="journalBlossomDetail">In the notebook: flowers, forecasts, a fresh start.</p>
+                </article>
+                <article data-season-page="growing">
+                  <p class="season-journal__chapter" data-i18n="journalGrowingNote">02 / THE EVERYDAY WORK</p>
+                  <h4 data-i18n="journalGrowingTitle">Room to grow. Time to care.</h4>
+                  <p data-i18n="journalGrowingBody">Leaves fill the branches and small green peaches take shape. Water is checked, crowded fruit is thinned, and the brothers return to the same rows, day after day.</p>
+                  <p class="season-journal__detail" data-i18n="journalGrowingDetail">In the notebook: water, space, patience.</p>
+                </article>
+                <article data-season-page="harvest">
+                  <p class="season-journal__chapter" data-i18n="journalHarvestNote">03 / THE FULL BASKET</p>
+                  <h4 data-i18n="journalHarvestTitle">Picked when the peach says so.</h4>
+                  <p data-i18n="journalHarvestBody">Color, fragrance, a little give beneath the fingers. The fruit sets the pace, and picking happens by hand. This is the chapter you can taste.</p>
+                  <p class="season-journal__detail" data-i18n="journalHarvestDetail">In the notebook: gentle hands, full baskets, juice on your chin.</p>
+                </article>
+                <article data-season-page="rest">
+                  <p class="season-journal__chapter" data-i18n="journalRestNote">04 / THE QUIET CHAPTER</p>
+                  <h4 data-i18n="journalRestTitle">An empty branch is a beginning.</h4>
+                  <p data-i18n="journalRestBody">The baskets are put away and the orchard grows quiet. There are tools to mend and notes to revisit before the story begins again with a flower.</p>
+                  <p class="season-journal__detail" data-i18n="journalRestDetail">In the notebook: repairs, reflection, next year.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section class="proof paper-section" aria-labelledby="proof-title">

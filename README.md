@@ -17,3 +17,9 @@ No build step or dependencies are required.
 ## Languages
 
 The header toggle switches the complete interface between English and Ukrainian and remembers the visitor's choice. A Ukrainian view can also be opened directly with `?lang=uk`.
+
+## Season journal
+
+The season section includes an illustrated orchard notebook with four chapters: blossom, growing, harvest and rest. Native radio controls support keyboard navigation; the illustration and text follow the selected chapter, which stays selected when switching languages. All four chapters remain readable without JavaScript.
+
+The journal describes the orchard's annual cycle, not a live harvest schedule.

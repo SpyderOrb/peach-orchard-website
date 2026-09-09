@@ -41,6 +41,31 @@ const translations = {
     careFiveBody: 'Color is only the first clue. A peach is ready when it gives just enough beneath your thumb.',
     careSixTitle: 'Read the weather',
     careSixBody: 'Forecasts, wind, heat, and humidity shape each day’s work. Plans change early, before the open steppe weather has a chance to do harm.',
+    journalIndex: 'FIELD NOTES / A YEAR IN THE ORCHARD',
+    journalTitle: 'Every peach has a before.',
+    journalIntro: 'Four chapters, one tree. Follow the quiet work that leads to a full basket.',
+    journalSketch: 'From the orchard notebook',
+    journalChoose: 'Choose a chapter of the orchard year',
+    journalBlossom: 'Blossom',
+    journalGrowing: 'Growing',
+    journalHarvest: 'Harvest',
+    journalRest: 'Rest',
+    journalBlossomNote: '01 / THE FIRST PROMISE',
+    journalBlossomTitle: 'Before the fruit, a flower.',
+    journalBlossomBody: 'The branches begin again in pink. The basket is still a long way off; for now, the work is to watch the trees and keep an eye on the changing weather.',
+    journalBlossomDetail: 'In the notebook: flowers, forecasts, a fresh start.',
+    journalGrowingNote: '02 / THE EVERYDAY WORK',
+    journalGrowingTitle: 'Room to grow. Time to care.',
+    journalGrowingBody: 'Leaves fill the branches and small green peaches take shape. Water is checked, crowded fruit is thinned, and the brothers return to the same rows, day after day.',
+    journalGrowingDetail: 'In the notebook: water, space, patience.',
+    journalHarvestNote: '03 / THE FULL BASKET',
+    journalHarvestTitle: 'Picked when the peach says so.',
+    journalHarvestBody: 'Color, fragrance, a little give beneath the fingers. The fruit sets the pace, and picking happens by hand. This is the chapter you can taste.',
+    journalHarvestDetail: 'In the notebook: gentle hands, full baskets, juice on your chin.',
+    journalRestNote: '04 / THE QUIET CHAPTER',
+    journalRestTitle: 'An empty branch is a beginning.',
+    journalRestBody: 'The baskets are put away and the orchard grows quiet. There are tools to mend and notes to revisit before the story begins again with a flower.',
+    journalRestDetail: 'In the notebook: repairs, reflection, next year.',
     proofIndex: '03 / THE PROOF',
     proofTitle: 'No slogans.<br /><em>Just take a bite.</em>',
     biteAlt: 'A freshly bitten yellow peach showing its juicy flesh',
@@ -122,6 +147,31 @@ const translations = {
     careFiveBody: 'Колір — лише перша ознака. Персик готовий, коли м’яко піддається під пальцями.',
     careSixTitle: 'Зважати на погоду',
     careSixBody: 'Прогноз, вітер, спека й вологість визначають щоденну роботу. План змінюють завчасно, перш ніж погода відкритого степу встигне нашкодити.',
+    journalIndex: 'НОТАТКИ / РІК У САДУ',
+    journalTitle: 'Кожен персик має свою передісторію.',
+    journalIntro: 'Чотири розділи, одне дерево. Пройдіть шлях щоденної турботи до повного кошика.',
+    journalSketch: 'Із садового записника',
+    journalChoose: 'Оберіть розділ садового року',
+    journalBlossom: 'Цвітіння',
+    journalGrowing: 'Ріст',
+    journalHarvest: 'Урожай',
+    journalRest: 'Спокій',
+    journalBlossomNote: '01 / ПЕРША НАДІЯ',
+    journalBlossomTitle: 'Спочатку квітка, потім плід.',
+    journalBlossomBody: 'Гілки знову вкриваються рожевим цвітом. До повного кошика ще далеко. А поки — спостерігати за деревами й уважно стежити за мінливою погодою.',
+    journalBlossomDetail: 'У записнику: квіти, прогнози, новий початок.',
+    journalGrowingNote: '02 / ЩОДЕННА ПРАЦЯ',
+    journalGrowingTitle: 'Простір для росту. Час для турботи.',
+    journalGrowingBody: 'Гілки вкриваються листям, з’являються маленькі зелені персики. Полив перевіряють, густі плоди проріджують, а брати щодня повертаються до тих самих рядів.',
+    journalGrowingDetail: 'У записнику: вода, простір, терпіння.',
+    journalHarvestNote: '03 / ПОВНИЙ КОШИК',
+    journalHarvestTitle: 'Час збору підказує сам персик.',
+    journalHarvestBody: 'Колір, аромат, легка м’якість під пальцями. Плоди задають темп, а збирають їх вручну. Це розділ, який можна скуштувати.',
+    journalHarvestDetail: 'У записнику: дбайливі руки, повні кошики, сік на підборідді.',
+    journalRestNote: '04 / ТИХИЙ РОЗДІЛ',
+    journalRestTitle: 'Гола гілка — теж початок.',
+    journalRestBody: 'Кошики прибрано, у саду стає тихо. Час полагодити інструменти й перечитати нотатки, перш ніж історія знову почнеться з квітки.',
+    journalRestDetail: 'У записнику: ремонт, роздуми, наступний рік.',
     proofIndex: '03 / ДОКАЗ',
     proofTitle: 'Без гасел.<br /><em>Просто скуштуйте.</em>',
     biteAlt: 'Свіжий надкушений жовтий персик із соковитою м’якоттю',
@@ -218,6 +268,23 @@ languageToggle?.addEventListener('click', () => {
 });
 
 const header = document.querySelector('[data-header]');
+const seasonJournal = document.querySelector('.season-journal');
+const seasonControls = seasonJournal.querySelector('[data-season-controls]');
+const seasonChoices = [...seasonControls.querySelectorAll('input')];
+const seasonPages = [...seasonJournal.querySelectorAll('[data-season-page]')];
+
+const showSeason = (season) => {
+  seasonJournal.dataset.season = season;
+  seasonChoices.forEach((choice) => { choice.checked = choice.value === season; });
+  seasonPages.forEach((page) => { page.hidden = page.dataset.seasonPage !== season; });
+};
+
+seasonControls.addEventListener('change', (event) => {
+  if (event.target.matches('input[name="orchard-season"]')) showSeason(event.target.value);
+});
+showSeason(seasonControls.querySelector('input:checked').value);
+seasonControls.hidden = false;
+
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('.site-nav');
 
