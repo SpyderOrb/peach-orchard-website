@@ -218,7 +218,7 @@ const translations = {
 const languageToggle = document.querySelector('[data-language-toggle]');
 
 const applyLanguage = (language, { persist = true } = {}) => {
-  const nextLanguage = translations[language] ? language : 'en';
+  const nextLanguage = Object.hasOwn(translations, language) ? language : 'en';
   const copy = translations[nextLanguage];
 
   document.documentElement.lang = nextLanguage;
@@ -446,7 +446,10 @@ dialog?.addEventListener('click', (event) => {
 dialog?.addEventListener('close', () => {
   window.clearTimeout(successFocusTimer);
   setDialogState('form');
-  dialogTrigger?.focus();
+  // The mobile menu closes before opening the dialog, hiding its visit button.
+  const returnTarget = nav?.contains(dialogTrigger) && menuButton?.getClientRects().length
+    ? menuButton : dialogTrigger;
+  returnTarget?.focus({ preventScroll: true });
   dialogTrigger = undefined;
 });
 
