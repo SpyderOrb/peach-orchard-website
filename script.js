@@ -1,4 +1,5 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const conserveMedia = reduceMotion || navigator.connection?.saveData;
 
 const translations = {
   en: {
@@ -106,6 +107,8 @@ const translations = {
     successTitle: 'We’ll save you a peach.',
     successBody: 'Thanks for the note. In a live version, this would now reach the orchard.',
     close: 'Close',
+    pauseVideos: 'Pause videos',
+    playVideos: 'Play videos',
   },
   uk: {
     pageTitle: 'The Peach Plot — Персики, вирощені поруч із домом',
@@ -212,10 +215,27 @@ const translations = {
     successTitle: 'Збережемо для вас персик.',
     successBody: 'Дякуємо за повідомлення. У робочій версії воно вже надійшло б до саду.',
     close: 'Закрити',
+    pauseVideos: 'Призупинити відео',
+    playVideos: 'Відтворити відео',
   },
 };
 
 const languageToggle = document.querySelector('[data-language-toggle]');
+const mediaToggle = document.querySelector('[data-media-toggle]');
+const mediaToggleLabel = mediaToggle?.querySelector('[data-media-toggle-label]');
+let mediaPlaybackEnabled = !conserveMedia;
+
+try {
+  if (localStorage.getItem('peach-orchard-media') === 'paused') mediaPlaybackEnabled = false;
+} catch {}
+
+const updateMediaToggleLabel = () => {
+  const copy = translations[document.documentElement.lang] || translations.en;
+  const label = mediaPlaybackEnabled ? copy.pauseVideos : copy.playVideos;
+  mediaToggleLabel?.replaceChildren(label);
+  if (mediaToggle) mediaToggle.dataset.paused = String(!mediaPlaybackEnabled);
+  if (mediaToggle) mediaToggle.title = label;
+};
 
 const applyLanguage = (language, { persist = true } = {}) => {
   const nextLanguage = Object.hasOwn(translations, language) ? language : 'en';
@@ -248,6 +268,7 @@ const applyLanguage = (language, { persist = true } = {}) => {
   const menuLabel = document.querySelector('.menu-button .sr-only');
   const menuIsOpen = document.querySelector('.menu-button')?.getAttribute('aria-expanded') === 'true';
   if (menuLabel) menuLabel.textContent = menuIsOpen ? copy.menuClose : copy.menuToggle;
+  updateMediaToggleLabel();
 
   if (persist) {
     try {
@@ -463,15 +484,31 @@ form?.addEventListener('submit', (event) => {
 });
 
 const ambientVideos = [...document.querySelectorAll('video[autoplay]')];
-const conserveMedia = reduceMotion || navigator.connection?.saveData;
 
 const updateVideoPlayback = (video) => {
-  const shouldPlay = !conserveMedia && !document.hidden && video.dataset.nearViewport === 'true';
+  const shouldPlay = mediaPlaybackEnabled && !document.hidden && video.dataset.nearViewport === 'true';
   if (shouldPlay) video.play().catch(() => {});
   else video.pause();
 };
 
-if ('IntersectionObserver' in window && !conserveMedia) {
+ambientVideos.forEach((video) => {
+  const bounds = video.getBoundingClientRect();
+  video.dataset.nearViewport = String(bounds.bottom >= -160 && bounds.top <= window.innerHeight + 160);
+  updateVideoPlayback(video);
+});
+
+mediaToggle?.removeAttribute('hidden');
+mediaToggle?.addEventListener('click', () => {
+  mediaPlaybackEnabled = !mediaPlaybackEnabled;
+  updateMediaToggleLabel();
+  try {
+    if (mediaPlaybackEnabled) localStorage.removeItem('peach-orchard-media');
+    else localStorage.setItem('peach-orchard-media', 'paused');
+  } catch {}
+  ambientVideos.forEach(updateVideoPlayback);
+});
+
+if ('IntersectionObserver' in window) {
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       entry.target.dataset.nearViewport = String(entry.isIntersecting);
@@ -479,10 +516,8 @@ if ('IntersectionObserver' in window && !conserveMedia) {
     });
   }, { rootMargin: '160px 0px' });
   ambientVideos.forEach((video) => videoObserver.observe(video));
-} else if (conserveMedia) {
-  ambientVideos.forEach((video) => video.pause());
 } else {
-  ambientVideos.forEach((video) => { video.dataset.nearViewport = 'true'; });
+  ambientVideos.forEach(updateVideoPlayback);
 }
 
 document.addEventListener('visibilitychange', () => {

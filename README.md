@@ -23,3 +23,7 @@ The header toggle switches the complete interface between English and Ukrainian 
 The season section includes an illustrated orchard notebook with four chapters: blossom, growing, harvest and rest. Native radio controls support keyboard navigation; the illustration and text follow the selected chapter, which stays selected when switching languages. All four chapters remain readable without JavaScript.
 
 The journal describes the orchard's annual cycle, not a live harvest schedule.
+
+## Motion controls
+
+A bilingual play/pause control manages both ambient videos. It starts paused when the visitor prefers reduced motion or has enabled data saving, and remembers a manual pause between visits.
