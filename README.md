@@ -16,7 +16,7 @@ No build step or dependencies are required.
 
 ## Languages
 
-The header toggle switches the complete interface between English and Ukrainian and remembers the visitor's choice. A Ukrainian view can also be opened directly with `?lang=uk`.
+The header toggle switches the complete interface between English and Ukrainian, remembers the visitor's choice and keeps it in the shareable URL as `?lang=en` or `?lang=uk`. On a first visit without a saved choice, the site follows the visitor's browser language when it supports either locale.
 
 ## Season journal
 

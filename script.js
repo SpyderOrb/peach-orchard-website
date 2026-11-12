@@ -225,6 +225,11 @@ const mediaToggle = document.querySelector('[data-media-toggle]');
 const mediaToggleLabel = mediaToggle?.querySelector('[data-media-toggle-label]');
 let mediaPlaybackEnabled = !conserveMedia;
 
+const normalizeLanguage = (language) => {
+  const baseLanguage = language?.trim().toLowerCase().split('-')[0];
+  return Object.hasOwn(translations, baseLanguage) ? baseLanguage : null;
+};
+
 try {
   if (localStorage.getItem('peach-orchard-media') === 'paused') mediaPlaybackEnabled = false;
 } catch {}
@@ -238,7 +243,7 @@ const updateMediaToggleLabel = () => {
 };
 
 const applyLanguage = (language, { persist = true } = {}) => {
-  const nextLanguage = Object.hasOwn(translations, language) ? language : 'en';
+  const nextLanguage = normalizeLanguage(language) || 'en';
   const copy = translations[nextLanguage];
 
   document.documentElement.lang = nextLanguage;
@@ -274,13 +279,23 @@ const applyLanguage = (language, { persist = true } = {}) => {
     try {
       localStorage.setItem('peach-orchard-language', nextLanguage);
     } catch {}
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', nextLanguage);
+      window.history.replaceState(window.history.state, '', url);
+    } catch {}
   }
 };
 
-let savedLanguage = 'en';
+const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+const browserLanguage = browserLanguages
+  .map(normalizeLanguage)
+  .find(Boolean) || 'en';
+let savedLanguage = browserLanguage;
 try {
-  const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
-  savedLanguage = requestedLanguage || localStorage.getItem('peach-orchard-language') || 'en';
+  const requestedLanguage = normalizeLanguage(new URLSearchParams(window.location.search).get('lang'));
+  const storedLanguage = normalizeLanguage(localStorage.getItem('peach-orchard-language'));
+  savedLanguage = requestedLanguage || storedLanguage || browserLanguage;
 } catch {}
 applyLanguage(savedLanguage, { persist: false });
 
